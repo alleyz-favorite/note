@@ -1,9 +1,9 @@
-## 安装jhipster
+## jhipster
 
 [TOC]
 
 ### 1. 环境
-- centos7
+- centos7.2
 - JDK8
 - maven 3.3.9
 - nodeJS 8.9.4
@@ -13,7 +13,7 @@
 ### 2. 配置环境
 #### 1. 配置JDK8，maven3.3.9，MySQL
 略...
-注意：MySQLgei授权以及maven的本地仓库设置
+注意：MySQL改授权以及maven的本地仓库设置
 
 #### 2. 安装nodeJS
 1. 下载[nodeJs](https://nodejs.org/dist/)，找到8.9.4版本下载，并上传到服务器/usr/local下。
@@ -39,6 +39,10 @@
 
 7. 替换淘宝镜像源
 > npm config set registry https://registry.npm.taobao.org
+
+8. Windows下安装nodeJS参见以下文章
+[Node.js安装及环境配置之Windows篇](https://www.jianshu.com/p/03a76b2e7e00)
+
 
 #### 3. 安装GIT
 1. 安装git
@@ -73,10 +77,13 @@ gem uninstall compass
 > tar jxf phantomjs-2.1.1-linux-x86_64.tar.bz2
 > 想办法解压bz2文件，然后将bin目录配置到PATH环境中，如果提示权限不足，可以给bin目录下的文件赋权限
 
+#### 6. 安装yarn
+> yum install -y yarn
+> Windows下直接安装即可
 
 #### 5. 安装jHipster
 1. 安装 yo / bower / gulp
-> npm install -g yo bower gulp-cli gulp
+> npm install -g yo bower gulp-cli gulp grunt-cli
 
 2. 安装jHipster
 > npm install -g generator-jhipster
@@ -168,6 +175,20 @@ gem uninstall compass
 
 依然是修改注册中心以及MySQL服务。
 
+#### 5. 生成实体类
+1. 进入到需要生成实体类项目的根目录下
+> cd app
+
+2. 执行命令生成实体类
+> yo jhipster:entity entityName
+![Alt text](./images/15179914391.jpg)
+
+注意：生成实体时要慎重选择对应关系，复杂的对应关系代表着复杂的处理逻辑。
+
+3. 生成实体后在页面可以进行操作
+![Alt text](./images/15179956921.jpg)
+
+
 -------------------------
 
 ### 10. 异常处理
@@ -180,7 +201,7 @@ tar (child): bzip2: Cannot exec: No such file or directory
 #### 2. jhipster项目启动后显示空白页
 **描述：**jhipster项目启动后显示空白页，后台并不见日志滚动，貌似没有请求到后台。
 
-**解决：**待定...
+**解决：**还是环境搭建的有问题，把依赖全部卸载后重新装一遍即可，但是大致原因可能是差了某个东西，第一次装没有安装 grunt-cli 和 Ruby的东西。在Linux中没有安装Ruby也可以，而在Windows上没有安装这些的时候就有问题。所以生成项目有问题时要检查一遍环境是否全部已经安装完毕。保证没有少安装
 
 #### 3. 缺少依赖
 ![Alt text](./images/15178836511.jpg)
@@ -213,4 +234,17 @@ your database is NOT ready: Validation Failed:
 2. 尽量启动少量的服务来测试
 3. 如果可以不要在同一虚拟机中进行操作
 
+#### 7. yarn的问题
+**描述：**安装yarn后，输入 yarn -v 命令，提示没有设置 HADOOP_CONF_DIR。
 
+**解决：**原因是安装了yarn，同时path里也配置了Hadoop的环境变量，而在HADOOP_HOME/bin下也有一个yarn的命令，将其删掉即可。（或直接改个名字）
+
+
+
+-----------------------------------------------------------------
+参考文章：
+1. [Node.js安装及环境配置之Windows篇](https://www.jianshu.com/p/03a76b2e7e00)
+2. [jhipster 安装](https://note.youdao.com/share/?id=abe7cb945ed1158cfab77e14705fd663&type=note#/)
+4. [jhipster-book.pdf](1)
+5. [jhipster学习心得](https://www.jianshu.com/p/621dfb94c3b6)
+6. [jHipster - 微服务搭建](https://www.jianshu.com/p/d3e6d2d73199)
